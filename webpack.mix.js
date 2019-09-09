@@ -12,4 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/char_generator/characteristics.js', 'public/js/char_generator')
+    .js('resources/js/char_generator/female-names.js', 'public/js/char_generator')
+    .js('resources/js/char_generator/char_generator.js', 'public/js/char_generator')
+    .js('resources/js/char_generator/male-names.js', 'public/js/char_generator')
+    .js('resources/js/char_generator/skills.js', 'public/js/char_generator')
     .sass('resources/sass/app.scss', 'public/css');
