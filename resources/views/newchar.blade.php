@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td>Home World</td>
-                        <td><span id="homeWorld" class="font-weight-bold"></span></td>
+                        <td><span id="homeWorld" class="font-weight-bold">{{ $character->home_world }}</span></td>
                     </tr>
                     <tr>
                         <td>Career Path</td>
@@ -81,7 +81,7 @@
                     </tr>
                     <tr>
                         <td>Age</td>
-                        <td><span id="age" class="font-weight-bold"></span></td>
+                        <td><span id="age" class="font-weight-bold"> {{$character->age->description}} ({{ $character->age->age  }})</span></td>
                     </tr>
                 </table>
             </div>

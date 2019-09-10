@@ -19,4 +19,4 @@ Route::view('login', 'login');
 
 Route::view('registration', 'registration');
 
-Route::view('new-char', 'newchar');
+Route::get('new-char', 'CharacterGeneratorController@show');
