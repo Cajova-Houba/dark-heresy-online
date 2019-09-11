@@ -29,7 +29,7 @@
                 <table class="wide-table-col">
                     <tr>
                         <td>Character Name</td>
-                        <td><span id="characterName" class="font-weight-bold"></span></td>
+                        <td><span id="characterName" class="font-weight-bold">{{ $character->character_name }}</span></td>
                     </tr>
                     <tr>
                         <td>Home World</td>
@@ -53,7 +53,7 @@
                     </tr>
                     <tr>
                         <td>Gender</td>
-                        <td><span id="gender" class="font-weight-bold"></span></td>
+                        <td><span id="gender" class="font-weight-bold"> {{ $character->gender }}</span></td>
                     </tr>
                     <tr>
                         <td>Build</td>

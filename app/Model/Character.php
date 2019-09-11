@@ -10,107 +10,17 @@ namespace App\Model;
 
 use Illuminate\Support\Facades\Log;
 
-
-class World {
-    const Feral = 'Feral World';
-    const Hive = 'Hive World';
-    const Imperial = 'Imperial World';
-    const VoidBorn = 'Void Born';
-}
-
-
-/**
- * Age of the character, together with description.
- *
- * @property  int age Character age in years.
- * @property string description Description of character's age, depends on its homeworld.
- * @package App\Model
- */
-class CharacterAge
-{
-   public function __construct()
-   {
-       $this->age = 0;
-       $this->description = 'description';
-   }
-
-   /**
-    * Generates age and description accordingly to provided homeworld.
-    * @param string $home_world
-    */
-   public function generate_for_home_world($home_world) {
-       $roll1 = rand(1,100);
-       $roll2 = rand(1,10);
-       Log::debug("Appearance - age roll 1: $roll1");
-       Log::debug("Appearance - age roll 2: $roll2");
-
-       $baseAge = 0;
-        switch ($home_world) {
-            case (World::Feral):
-                if ($roll1 < 71) {
-                    $this->description = 'Warrior';
-                    $this->age = 15;
-                } else {
-                    $this->description = 'Old One';
-                    $baseAge = 25;
-                }
-                break;
-
-            case (World::Hive):
-                if ($roll1 < 31) {
-                    $this->description = 'Nipper';
-                    $baseAge = 15;
-                } else if ($roll1 < 91) {
-                    $this->description = 'Adult';
-                    $baseAge = 25;
-                } else {
-                    $this->description = 'Old Timer';
-                    $baseAge = 35;
-                }
-                break;
-
-            case (World::Imperial):
-                if ($roll1 < 51) {
-                    $this->description = 'Stripling';
-                    $baseAge = 20;
-                } else if ($roll1 < 81) {
-                    $this->description = 'Mature';
-                    $baseAge = 30;
-                } else {
-                    $this->description = 'Veteran';
-                    $baseAge = 40;
-                }
-                break;
-
-            case (World::VoidBorn):
-                if ($roll1 < 41) {
-                    $this->description = 'Youth';
-                    $baseAge = 15;
-                } else if ($roll1 < 71) {
-                    $this->description = 'Mature';
-                    $baseAge = 20;
-                } else {
-                    $this->description = 'Methuselah';
-                    $baseAge = 50;
-                }
-                break;
-        }
-
-        $this->age = $baseAge + $roll2;
-   }
-}
-
 /**
  * Playable character.
  *
- * @property string characterName
+ * @property string $character_name
  * @property string home_world
  * @property string divination
  * @property array skillSet
  * @property int fatePoints
  * @property Wounds wounds
  * @property Characteristics characteristics
- * @property CharacterAge age
+ * @property Age age
  * @property string eyeColour
  * @property string hairColour
  * @property string skinColour
@@ -126,7 +36,7 @@ class Character
 {
     public function __construct()
     {
-        $this->characterName = '';
+        $this->character_name = '';
         $this->home_world = '';
 //        $this->career = new Career();
         $this->divination = '';
@@ -138,7 +48,7 @@ class Character
         $this->skinColour = '';
         $this->hairColour = '';
         $this->eyeColour = '';
-        $this->age = new CharacterAge();
+        $this->age = new Age('',0);
 //        $this->characteristics = new Characteristics();
 //        $this->wounds = new Wounds();
         $this->fatePoints = 0;
@@ -168,14 +78,11 @@ class Character
     private function generate_home_world() {
         $roll = rand(1,100);
         Log::debug("Home world roll: $roll");
-        if ($roll < 21) {
-            $this->home_world = World::Feral;
-        } else if ($roll < 46) {
-            $this->home_world = World::Hive;
-        } else if ($roll < 91) {
-            $this->home_world = World::Imperial;
-        } else {
-            $this->home_world = World::VoidBorn;
+        foreach (LoreConstants::WORLD_ROLLS as $minRoll => $world) {
+            if ($roll < $minRoll) {
+                $this->home_world = $world;
+                break;
+            }
         }
     }
 
@@ -183,7 +90,63 @@ class Character
      * Generates basic info for this character.
      */
     private function generate_basic_info() {
-        $this->age->generate_for_home_world($this->home_world);
+        $this->generate_gender();
+        $this->generate_name();
+        $this->generate_age();
         // todo
+    }
+
+    private function generate_gender() {
+        $roll = rand(1,100);
+        Log::debug("Gender roll: ${roll}");
+        if ($roll < 51) {
+            $this->gender = LoreConstants::MALE_GENDER;
+        } else {
+            $this->gender = LoreConstants::FEMALE_GENDER;
+        }
+    }
+
+    private function generate_name() {
+        $roll1 = rand(1,100);
+        $roll2 = rand(1,5);
+
+        Log::debug("Name roll 1: ${roll1}");
+        Log::debug("Name roll 2: ${roll2}");
+
+        // get index of the name to be used (determined by the first roll)
+        $name_num = 0;
+        while ($roll1 >= LoreConstants::NAME_ROLL_BOUNDARIES[$name_num]) {
+            $name_num++;
+        }
+
+        // get the name, second roll determines the name type (ancient, informal, ...)
+        $this->character_name = LoreConstants::NAMES_BY_GENDER[$this->gender][$roll2 - 1][$name_num];
+    }
+
+    private function generate_age() {
+        $roll1 = rand(1,100);
+        $roll2 = rand(1,10);
+        $age = 0;
+        $ageDesc = '';
+        Log::debug("Appearance - age roll 1: ${roll1}");
+        Log::debug("Appearance - age roll 2: ${roll2}");
+
+
+        // get base age and age description for given world/roll combination
+        $ages = LoreConstants::AGE_BY_WORLDS[$this->home_world];
+        foreach ($ages as $minRoll => $ageDetail) {
+            // if the 100 dice roll is lower minimal roll needed for current age, use that age
+            if ($roll1 < $minRoll) {
+                $age = $ageDetail[0];
+                $ageDesc = $ageDetail[1];
+                break;
+            }
+        }
+
+        // add second roll to get full age
+        $age += $roll2;
+
+        $this->age->description = $ageDesc;
+        $this->age->age = $age;
     }
 }
