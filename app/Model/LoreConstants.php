@@ -57,6 +57,12 @@ class LoreConstants
     ];
 
     /**
+     * Roll boundaries for choosing your divination. If your roll is < than the current
+     * current boundary, pick the one with the same index.
+     */
+    const DIVINATION_BOUNDARIES = [2,4,8,9,12,16,19,22,27,31,34,39,43,46,47,51,55,59,63,67,71,75,80,86,91,85,98,100,101];
+
+    /**
      * Contains names for each gender.
      *
      * NAMES_BY_GENDER[$gender] => [[primitive names], [low names], [ancient names], [informal names]]
@@ -527,5 +533,75 @@ class LoreConstants
             ]
         ]
     ];
+
+    /**
+     * 5 color sets for each world.
+     */
+    const COLOURS_BY_WORLD = [
+        LoreConstants::FERAl_WORLD => [
+            ['skin' => 'Dark', 'hair' => 'Red', 'eyes' =>  'Blue'],
+            ['skin' => 'Tan', 'hair' => 'Blond', 'eyes' =>  'Grey'],
+            ['skin' => 'Fair', 'hair' => 'Brown', 'eyes' =>  'Brown'],
+            ['skin' => 'Ruddy', 'hair' => 'Black', 'eyes' =>  'Green'],
+            ['skin' => 'Bronze', 'hair' => 'Grey', 'eyes' =>  'Yellow']
+        ],
+        LoreConstants::HIVE_WORLD => [
+            ['skin' => 'Dark', 'hair' => 'Brown', 'eyes' =>  'Blue'],
+            ['skin' => 'Tan', 'hair' => 'Mousy', 'eyes' =>  'Grey'],
+            ['skin' => 'Fair', 'hair' => 'Dyed', 'eyes' =>  'Brown'],
+            ['skin' => 'Ruddy', 'hair' => 'Grey', 'eyes' =>  'Green'],
+            ['skin' => 'Stained', 'hair' => 'Black', 'eyes' =>  'Lenses']
+        ],
+        LoreConstants::IMPERIAL_WORLD=> [
+            ['skin' => 'Dark', 'hair' => 'Dyed', 'eyes' =>  'Blue'],
+            ['skin' => 'Tan', 'hair' => 'Blond', 'eyes' =>  'Grey'],
+            ['skin' => 'Fair', 'hair' => 'Brown', 'eyes' =>  'Brown'],
+            ['skin' => 'Ruddy', 'hair' => 'Black', 'eyes' =>  'Green'],
+            ['skin' => 'Dyed', 'hair' => 'Grey', 'eyes' =>  'Lenses']
+        ],
+        LoreConstants::VOID_BORN_WORLD => [
+            ['skin' => 'Porcelain', 'hair' => 'Ginger', 'eyes' =>  'Watery Blue'],
+            ['skin' => 'Fair', 'hair' => 'Blond', 'eyes' =>  'Grey'],
+            ['skin' => 'Bluish', 'hair' => 'Copper', 'eyes' =>  'Black'],
+            ['skin' => 'Greyish', 'hair' => 'Black', 'eyes' =>  'Green'],
+            ['skin' => 'Milky', 'hair' => 'Auburn', 'eyes' =>  'Violet']
+        ]
+    ];
+
+    /**
+     * A set of possible quirks for each world.
+     */
+    const QUIRKS_BY_WORLD = [
+        LoreConstants::FERAl_WORLD => [
+            'Hairy Knuckles', 'Joined Eyebrows', 'Warpaint', 'Hands like Spatchcocks',
+            'Filed Teeth', 'Beetling Brows', 'Musky Smell', 'Hairy',
+            'Ripped Ears', 'Long Fingernails', 'Tribal Tattooing', 'Scarring',
+            'Piercing', 'Cat\'s Eyes', 'Small Head', 'Thick Jaw'
+        ],
+        LoreConstants::HIVE_WORLD => [
+            'Pallid', 'Grimy Skin', 'Outrageous Hair', 'Rotten Teeth',
+            'Electoo', 'Piercing', 'Set of Piercings', 'Hacking Cough',
+            'Tattoos', 'Bullet Wound Scar', 'Nervous Tic', 'Large Mole',
+            'Pollution Scars', 'Hump', 'Small Hands', 'Chemical Smell'
+        ],
+        LoreConstants::IMPERIAL_WORLD => [
+            'Missing Digit', 'Aquiline Nose', 'Warts', 'Duelling Scar',
+            'Pierced Nose', 'Nervous Tic', 'Aquila Tattoo', 'Faint Smell',
+            'Pox Marks', 'Devotional Scar', 'Electoo', 'Quivering Fingers',
+            'Pierced Ears', 'Sinister Boil', 'Make-up', 'Slouched Gait'
+        ],
+        LoreConstants::VOID_BORN_WORLD => [
+            'Pallid', 'Bald', 'Long Fingers', 'Tiny Ears',
+            'Spindly Limbs', 'Yellow Fingernails', 'Stumpy Teeth',
+            'Widely Spaced Eyes', 'Large Head', 'Curved Spine', 'Hairless',
+            'Elegant Hands', 'Flowing Hair', 'Albino', 'Limping Gait', 'Stooped Stance'
+        ]
+    ];
+
+    /**
+     * Roll boundaries for choosing quirks. If your roll is < than the current one,
+     * pick the quirk with the same index.
+     */
+    const QUIRK_ROLL_BOUNDARIES = [7,14,21,28,35,42,49,56,62,69,76,83,88,89,96,101];
 
 }

@@ -8,6 +8,7 @@
 
 namespace App\Model;
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -16,14 +17,14 @@ use Illuminate\Support\Facades\Log;
  * @property string $character_name
  * @property string home_world
  * @property string divination
- * @property array skillSet
- * @property int fatePoints
+ * @property array $skill_set
+ * @property int $fate_points
  * @property Wounds wounds
  * @property Characteristics characteristics
  * @property Age age
- * @property string eyeColour
- * @property string hairColour
- * @property string skinColour
+ * @property string $eye_colour
+ * @property string $skin_colour
+ * @property string $hair_colour
  * @property float weight
  * @property float height
  * @property string build
@@ -45,14 +46,14 @@ class Character
         $this->build = '';
         $this->height = 0.0;
         $this->weight = 0.0;
-        $this->skinColour = '';
-        $this->hairColour = '';
-        $this->eyeColour = '';
+        $this->skin_colour = '';
+        $this->hair_colour = '';
+        $this->eye_colour = '';
         $this->age = new Age('',0);
 //        $this->characteristics = new Characteristics();
 //        $this->wounds = new Wounds();
-        $this->fatePoints = 0;
-        $this->skillSet = [];
+        $this->fate_points = 0;
+        $this->skill_set = [];
     }
 
     /**
@@ -93,6 +94,7 @@ class Character
         $this->generate_gender();
         $this->generate_name();
         $this->generate_age();
+        $this->generate_appearance();
         // todo
     }
 
@@ -148,5 +150,53 @@ class Character
 
         $this->age->description = $ageDesc;
         $this->age->age = $age;
+    }
+
+    private function generate_appearance() {
+        $roll = rand(1,100);
+        Log::debug("Appearance - build roll: ${roll}");
+
+        // convert 1-100 to 0-4 for better access to build array
+        $build_num = floor(($roll - 1) / 20);
+        $this->build = LoreConstants::BUILD_BY_WORLDS[$this->home_world][$build_num]['description'];
+        $this->height = LoreConstants::BUILD_BY_WORLDS[$this->home_world][$build_num][$this->gender]['height'];
+        $this->weight = LoreConstants::BUILD_BY_WORLDS[$this->home_world][$build_num][$this->gender]['weight'];
+
+        // generate rest of appearance
+        $this->generate_colours();
+        $this->generate_quirk();
+        $this->generate_divination();
+    }
+
+    private function generate_colours() {
+        $roll = rand(1, 100);
+        Log::debug("Appearance - colour roll: ${roll}");
+
+        // from 1-100 to 0-5
+        $roll_num = floor(($roll + 1) / 20);
+        $this->skin_colour = LoreConstants::COLOURS_BY_WORLD[$this->home_world][$roll_num]['skin'];
+        $this->hair_colour = LoreConstants::COLOURS_BY_WORLD[$this->home_world][$roll_num]['hair'];
+        $this->eye_colour =  LoreConstants::COLOURS_BY_WORLD[$this->home_world][$roll_num]['eyes'];
+    }
+
+    private function generate_quirk() {
+        $roll = rand(1,100);
+        Log::debug("Appearance - quirk roll: ${roll}");
+        $quirk_num = 0;
+        while ($roll >= LoreConstants::QUIRK_ROLL_BOUNDARIES[$quirk_num]) {
+            $quirk_num++;
+        }
+        $this->quirk = LoreConstants::QUIRKS_BY_WORLD[$this->home_world][$quirk_num];
+    }
+
+    private function generate_divination() {
+        $roll = rand(1, 100);
+        Log::debug("Divination roll: ${roll}");
+
+        $divination_num = 0;
+        while ($roll >= LoreConstants::DIVINATION_BOUNDARIES[$divination_num]) {
+            $divination_num++;
+        }
+        $this->divination = LoreConstants::DIVINATIONS[$divination_num];
     }
 }

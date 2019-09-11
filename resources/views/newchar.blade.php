@@ -45,11 +45,11 @@
                     </tr>
                     <tr>
                         <td>Divination</td>
-                        <td><span id="divination" class="font-weight-bold font-italic"></span></td>
+                        <td><span id="divination" class="font-weight-bold font-italic">{{ $character->divination }}</span></td>
                     </tr>
                     <tr>
                         <td>Quirk</td>
-                        <td><span id="quirk" class="font-weight-bold"></span></td>
+                        <td><span id="quirk" class="font-weight-bold">{{ $character->quirk }}</span></td>
                     </tr>
                     <tr>
                         <td>Gender</td>
@@ -57,27 +57,27 @@
                     </tr>
                     <tr>
                         <td>Build</td>
-                        <td><span id="build" class="font-weight-bold"></span></td>
+                        <td><span id="build" class="font-weight-bold">{{$character->build}}</span></td>
                     </tr>
                     <tr>
                         <td>Height</td>
-                        <td><span id="height" class="font-weight-bold"></span> <span class="font-weight-bold">m</span></td>
+                        <td><span id="height" class="font-weight-bold">{{$character->height}}</span> <span class="font-weight-bold">m</span></td>
                     </tr>
                     <tr>
                         <td>Weight</td>
-                        <td><span id="weight" class="font-weight-bold"></span> <span class="font-weight-bold">kg</span></td>
+                        <td><span id="weight" class="font-weight-bold">{{$character->weight}}</span> <span class="font-weight-bold">kg</span></td>
                     </tr>
                     <tr>
                         <td>Skin Colour</td>
-                        <td><span id="skinColour" class="font-weight-bold"></span></td>
+                        <td><span id="skinColour" class="font-weight-bold">{{ $character->skin_colour }}</span></td>
                     </tr>
                     <tr>
                         <td>Hair Colour</td>
-                        <td><span id="hairColour" class="font-weight-bold"></span></td>
+                        <td><span id="hairColour" class="font-weight-bold">{{$character->hair_colour}}</span></td>
                     </tr>
                     <tr>
                         <td>Eye Colour</td>
-                        <td><span id="eyeColour" class="font-weight-bold"></span></td>
+                        <td><span id="eyeColour" class="font-weight-bold">{{$character->eye_colour}}</span></td>
                     </tr>
                     <tr>
                         <td>Age</td>
