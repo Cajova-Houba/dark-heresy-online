@@ -25,42 +25,40 @@ class LoreConstants
     const MALE_GENDER = 'Male';
     const FEMALE_GENDER = 'Female';
 
-    const DIVINATIONS = [
-        "Mutation without, corruption within.",
-        "Only the insane have strength enough to prosper. Only those who prosper may judge what is sane.",
-        "Sins hidden in the heart turn all to decay.",
-        "Innocence is an illusion.",
-        "Dark dreams lie upon the heart.",
-        "The pain of the bullet is ecstasy compared to damnation.",
-        "Kill the alien before it can speak its lies.",
-        "Truth is subjective.",
-        "Know the mutant; kill the mutant.",
-        "Even a man who has nothing can still offer his life.",
-        "If a job is worth doing it is worth dying for.",
-        "Only in death does duty end.",
-        "A mind without purpose will wander in dark places.",
-        "There are no civilians in the battle for survival.",
-        "Violence solves everything.",
-        "To war is human.",
-        "Die if you must, but not with your spirit broken.",
-        "The gun is mightier than the sword.",
-        "Be a boon to your brothers and bane to your enemies.",
-        "Men must die so that Man endures.",
-        "In the darkness, follow the light of Terra.",
-        "The only true fear is of dying with your duty not done.",
-        "Thought begets Heresy; Heresy begets Retribution.",
-        "The wise man learns from the deaths of others.",
-        "A suspicious mind is a healthy mind.",
-        "Trust in your fear.",
-        "There is no substitute for zeal.",
-        "Do not ask why you serve. Only ask how."
-    ];
-
     /**
-     * Roll boundaries for choosing your divination. If your roll is < than the current
-     * current boundary, pick the one with the same index.
+     * Divinations, structured as max_inclusive_value => divination.
+     *
      */
-    const DIVINATION_BOUNDARIES = [2,4,8,9,12,16,19,22,27,31,34,39,43,46,47,51,55,59,63,67,71,75,80,86,91,85,98,100,101];
+    const DIVINATIONS = [
+        2 => "Mutation without, corruption within.",
+        4 => "Only the insane have strength enough to prosper. Only those who prosper may judge what is sane.",
+        8 => "Sins hidden in the heart turn all to decay.",
+        9 => "Innocence is an illusion.",
+        12 => "Dark dreams lie upon the heart.",
+        16 => "The pain of the bullet is ecstasy compared to damnation.",
+        19 => "Kill the alien before it can speak its lies.",
+        22 => "Truth is subjective.",
+        27 => "Know the mutant; kill the mutant.",
+        31 => "Even a man who has nothing can still offer his life.",
+        34 => "If a job is worth doing it is worth dying for.",
+        39 => "Only in death does duty end.",
+        43 => "A mind without purpose will wander in dark places.",
+        46 => "There are no civilians in the battle for survival.",
+        47 => "Violence solves everything.",
+        51 => "To war is human.",
+        55 => "Die if you must, but not with your spirit broken.",
+        59 => "The gun is mightier than the sword.",
+        63 => "Be a boon to your brothers and bane to your enemies.",
+        67 => "Men must die so that Man endures.",
+        71 => "In the darkness, follow the light of Terra.",
+        75 => "The only true fear is of dying with your duty not done.",
+        80 => "Thought begets Heresy; Heresy begets Retribution.",
+        86 => "The wise man learns from the deaths of others.",
+        91 => "A suspicious mind is a healthy mind.",
+        85 => "Trust in your fear.",
+        98 => "There is no substitute for zeal.",
+        100 => "Do not ask why you serve. Only ask how."
+    ];
 
     /**
      * Contains names for each gender.
@@ -596,6 +594,29 @@ class LoreConstants
             'Widely Spaced Eyes', 'Large Head', 'Curved Spine', 'Hairless',
             'Elegant Hands', 'Flowing Hair', 'Albino', 'Limping Gait', 'Stooped Stance'
         ]
+    ];
+
+    /**
+     * Significance of characteristic based on its value.
+     * Structure is  max_char_value => significance where
+     * max_char_value is not inclusive.
+     */
+    const CHARACTERISTIC_SIGNIFICANCES = [
+        10 => 'n00b',
+        15 => 'Feeble',
+        20 => 'Inferior',
+        35 => 'Average',
+        40 => 'Superior',
+        45 => 'Great',
+        50 => 'Magnificent',
+        100 => 'Heroic'
+    ];
+
+    const CHARACTERISTIC_MODIFIERS_BY_WORLD = [
+        LoreConstants::FERAl_WORLD => [20,20,25,25,20,20,20,15,15],
+        LoreConstants::HIVE_WORLD => [20,20,20,15,20,20,20,20,25],
+        LoreConstants::IMPERIAL_WORLD => [20,20,20,20,20,20,20,20,20],
+        LoreConstants::VOID_BORN_WORLD => [20,20,15,20,20,20,20,25,20],
     ];
 
     /**

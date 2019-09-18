@@ -50,7 +50,7 @@ class Character
         $this->hair_colour = '';
         $this->eye_colour = '';
         $this->age = new Age('',0);
-//        $this->characteristics = new Characteristics();
+        $this->characteristics = new Characteristics();
 //        $this->wounds = new Wounds();
         $this->fate_points = 0;
         $this->skill_set = [];
@@ -95,7 +95,7 @@ class Character
         $this->generate_name();
         $this->generate_age();
         $this->generate_appearance();
-        // todo
+        $this->characteristics->generate_for_world($this->home_world);
     }
 
     private function generate_gender() {
@@ -193,10 +193,11 @@ class Character
         $roll = rand(1, 100);
         Log::debug("Divination roll: ${roll}");
 
-        $divination_num = 0;
-        while ($roll >= LoreConstants::DIVINATION_BOUNDARIES[$divination_num]) {
-            $divination_num++;
+        foreach (LoreConstants::DIVINATIONS as $max_val => $divination) {
+            if ($roll <= $max_val) {
+                $this->divination = $divination;
+                break;
+            }
         }
-        $this->divination = LoreConstants::DIVINATIONS[$divination_num];
     }
 }

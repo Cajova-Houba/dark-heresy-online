@@ -88,42 +88,48 @@
             <div class="col-6">
                 <h2>Characteristics</h2>
                 <table class="wide-table-col">
-                    <tr>
-                        <td>Weapon Skill</td>
-                        <td><span id="weaponSkill" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Ballistic Skill</td>
-                        <td><span id="ballisticSkill" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Strength</td>
-                        <td><span id="strength" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Toughness</td>
-                        <td><span id="toughness" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Agility</td>
-                        <td><span id="agility" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Intelligence</td>
-                        <td><span id="intelligence" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Perception</td>
-                        <td><span id="perception" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Willpower</td>
-                        <td><span id="willpower" class="font-weight-bold"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Fellowship</td>
-                        <td><span id="fellowship" class="font-weight-bold"></span></td>
-                    </tr>
+                    @foreach($character->characteristics as $char)
+                        <tr>
+                            <td>{{$char->name}}</td>
+                            <td><span class="font-weight-bold">{{$char->get_value()}}</span></td>
+                        </tr>
+                    @endforeach
+                    {{--<tr>--}}
+                        {{--<td>Weapon Skill</td>--}}
+                        {{--<td><span id="weaponSkill" class="font-weight-bold">{{$character->characteristics->weapon_skill->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Ballistic Skill</td>--}}
+                        {{--<td><span id="ballisticSkill" class="font-weight-bold">{{$character->characteristics->ballistic_skill->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Strength</td>--}}
+                        {{--<td><span id="strength" class="font-weight-bold">{{$character->characteristics->strength->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Toughness</td>--}}
+                        {{--<td><span id="toughness" class="font-weight-bold">{{$character->characteristics->toughness->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Agility</td>--}}
+                        {{--<td><span id="agility" class="font-weight-bold">{{$character->characteristics->agility->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Intelligence</td>--}}
+                        {{--<td><span id="intelligence" class="font-weight-bold">{{$character->characteristics->intelligence->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Perception</td>--}}
+                        {{--<td><span id="perception" class="font-weight-bold">{{$character->characteristics->perception->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Willpower</td>--}}
+                        {{--<td><span id="willpower" class="font-weight-bold">{{$character->characteristics->willpoer->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td>Fellowship</td>--}}
+                        {{--<td><span id="fellowship" class="font-weight-bold">{{$character->characteristics->fellowship->get_value()}}</span></td>--}}
+                    {{--</tr>--}}
                 </table>
             </div>
         </div>
